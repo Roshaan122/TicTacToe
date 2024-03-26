@@ -1,0 +1,17 @@
+#board {
+    height: 450px;
+    width: 400px;
+    background-color: rgb(174, 174, 174);
+    margin-top: 20px;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 20px;
+    /* Change this value to adjust the gap */
+}
+
+td {
+
+    border: 1px solid black;
+}
