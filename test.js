@@ -23,7 +23,7 @@ function minimax(board, depth, isMaximizingPlayer) {
         for (let i = 0; i < board.length; i++) {
             for (let j = 0; j < board[i].length; j++) {
                 if (board[i][j] === '') {
-                    board[i][j] = 'O';
+                    board[i][j] = 'O'; // Opponent's move
                     const score = minimax(board, depth - 1, true);
                     board[i][j] = '';
                     bestScore = Math.min(score, bestScore);
@@ -77,17 +77,17 @@ function checkWinner(board) {
 }
 
 function findBestMove(board, depth) {
-    let bestMove = { row: -1, col: -1 };
+    let bestMove = [-1, -1];
     let bestScore = Infinity;
     for (let i = 0; i < board.length; i++) {
         for (let j = 0; j < board[i].length; j++) {
             if (board[i][j] === '') {
                 board[i][j] = 'O'; // Try opponent's move
-                const score = minimax(board, depth - 1, true);
+                const score = minimax(board, depth - 1, false);
                 board[i][j] = '';
                 if (score < bestScore) {
                     bestScore = score;
-                    bestMove = { row: i, col: j };
+                    bestMove = [i, j];
                 }
             }
         }
@@ -97,9 +97,20 @@ function findBestMove(board, depth) {
 
 // Example usage:
 const board = [
-    ['X', 'O', ''],
-    ['', 'X', 'O'],
-    ['', '', 'X']
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', '']
 ];
-const bestMove = findBestMove(board, 5);
-console.log(bestMove); // Output: { row: 2, col: 0 }
+let i = 0
+while (i < 9) {
+    movex = prompt("enter x pos");
+    movey = prompt("enter y pos");
+    if (board[movex][movey] != 'X' || board[movex][movey] != 'O') {
+        board[movex][movey] = 'X'
+    }
+    console.log(board);
+    bestMove = findBestMove(board, 9);
+    board[bestMove[0]][bestMove[1]] = 'O'; // Use capital 'O' for the opponent's move
+    console.log(board); // Output: [['X', 'O', ''], ['', 'X', 'O'], ['O', '', '']]
+    console.log(bestMove);
+}
